@@ -1,0 +1,24 @@
+@startuml
+"User" as user
+() "Docker Socket" as docker_socket
+[DockerRelay] as ms_relay
+[Spawner] as ms_spawner
+[Informant] as ms_informant
+[ConfigTranslator] as ms_trans
+[API] as ms_api
+[Watcher] as ms_watcher
+[Recorder] as ms_recorder
+database "NoSQL" as db
+
+user --> ms_api
+ms_api --> ms_spawner
+ms_api --> ms_informant
+ms_spawner --> ms_trans
+ms_spawner --> ms_relay
+ms_relay --> docker_socket
+ms_watcher --> ms_relay
+ms_recorder --> db
+ms_spawner --> ms_recorder
+ms_informant --> ms_recorder
+
+@enduml
